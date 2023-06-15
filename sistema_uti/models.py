@@ -1,12 +1,13 @@
+#from django.contrib import admin
 from django.db import models
 from datetime import datetime, date
+#from django.utils.html import format_html
 
 class Produto(models.Model):
     nome_do_produto = models.CharField(max_length=30)
     codigo_de_barras = models.CharField(max_length=13)
     quantidade = models.CharField(max_length=3)
     preco = models.CharField(max_length=7)
-    
 
     def __str__(self):
         return self.nome_do_produto
@@ -18,6 +19,7 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nome_do_cliente
+
 
 class entrada_e_saida(models.Model):
     VENDA_CHOICES = (
@@ -36,6 +38,7 @@ class entrada_e_saida(models.Model):
         ("2", "2x"),
         ("3", "3x")
     )
+    
     data = models.DateField(default=datetime.now)
     venda_servico = models.CharField(max_length=1, choices=VENDA_CHOICES, blank=False, null=False)
     codigo_de_barras = models.CharField(max_length=13)
@@ -47,10 +50,8 @@ class entrada_e_saida(models.Model):
     parcelas = models.CharField(max_length=2, choices=PARCELAS_CHOICES, blank=False, null=False)
     observacao = models.TextField()
 
-    
-   
-    
-
     def __str__(self):
         return self.codigo_de_barras
-   
+    
+    class Meta:
+        verbose_name = u'Entradas e Saída'
